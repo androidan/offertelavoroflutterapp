@@ -20,14 +20,6 @@ class JobWidget extends StatelessWidget {
         leading: Container(
           width: 45,
           height: 45,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            //color: Theme.of(context).primaryColor,
-          ),
-          // child: Icon(
-          //   Icons.star_border_outlined,
-          //   color: Theme.of(context).colorScheme.secondary,
-          // ),
           child: Center(
               child: Text(
             '👨‍💻',

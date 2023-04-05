@@ -30,33 +30,21 @@ abstract class $AppRouter extends _i5.RootStackRouter {
       );
     },
     AnnunciFreelanceRoute.name: (routeData) {
-      final args = routeData.argsAs<AnnunciFreelanceRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.AnnunciFreelancePage(
-          args.content,
-          key: args.key,
-        ),
+        child: const _i2.AnnunciFreelancePage(),
       );
     },
     AnnunciDipRoute.name: (routeData) {
-      final args = routeData.argsAs<AnnunciDipRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.AnnunciDipPage(
-          args.content,
-          key: args.key,
-        ),
+        child: const _i3.AnnunciDipPage(),
       );
     },
     AnnunciPreferitiRoute.name: (routeData) {
-      final args = routeData.argsAs<AnnunciPreferitiRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.AnnunciPreferitiPage(
-          args.content,
-          key: args.key,
-        ),
+        child: const _i4.AnnunciPreferitiPage(),
       );
     },
   };
@@ -78,116 +66,42 @@ class ContentRoute extends _i5.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.AnnunciFreelancePage]
-class AnnunciFreelanceRoute
-    extends _i5.PageRouteInfo<AnnunciFreelanceRouteArgs> {
-  AnnunciFreelanceRoute({
-    required String content,
-    _i6.Key? key,
-    List<_i5.PageRouteInfo>? children,
-  }) : super(
+class AnnunciFreelanceRoute extends _i5.PageRouteInfo<void> {
+  const AnnunciFreelanceRoute({List<_i5.PageRouteInfo>? children})
+      : super(
           AnnunciFreelanceRoute.name,
-          args: AnnunciFreelanceRouteArgs(
-            content: content,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'AnnunciFreelanceRoute';
 
-  static const _i5.PageInfo<AnnunciFreelanceRouteArgs> page =
-      _i5.PageInfo<AnnunciFreelanceRouteArgs>(name);
-}
-
-class AnnunciFreelanceRouteArgs {
-  const AnnunciFreelanceRouteArgs({
-    required this.content,
-    this.key,
-  });
-
-  final String content;
-
-  final _i6.Key? key;
-
-  @override
-  String toString() {
-    return 'AnnunciFreelanceRouteArgs{content: $content, key: $key}';
-  }
+  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.AnnunciDipPage]
-class AnnunciDipRoute extends _i5.PageRouteInfo<AnnunciDipRouteArgs> {
-  AnnunciDipRoute({
-    required String content,
-    _i6.Key? key,
-    List<_i5.PageRouteInfo>? children,
-  }) : super(
+class AnnunciDipRoute extends _i5.PageRouteInfo<void> {
+  const AnnunciDipRoute({List<_i5.PageRouteInfo>? children})
+      : super(
           AnnunciDipRoute.name,
-          args: AnnunciDipRouteArgs(
-            content: content,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'AnnunciDipRoute';
 
-  static const _i5.PageInfo<AnnunciDipRouteArgs> page =
-      _i5.PageInfo<AnnunciDipRouteArgs>(name);
-}
-
-class AnnunciDipRouteArgs {
-  const AnnunciDipRouteArgs({
-    required this.content,
-    this.key,
-  });
-
-  final String content;
-
-  final _i6.Key? key;
-
-  @override
-  String toString() {
-    return 'AnnunciDipRouteArgs{content: $content, key: $key}';
-  }
+  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.AnnunciPreferitiPage]
-class AnnunciPreferitiRoute
-    extends _i5.PageRouteInfo<AnnunciPreferitiRouteArgs> {
-  AnnunciPreferitiRoute({
-    required String content,
-    _i6.Key? key,
-    List<_i5.PageRouteInfo>? children,
-  }) : super(
+class AnnunciPreferitiRoute extends _i5.PageRouteInfo<void> {
+  const AnnunciPreferitiRoute({List<_i5.PageRouteInfo>? children})
+      : super(
           AnnunciPreferitiRoute.name,
-          args: AnnunciPreferitiRouteArgs(
-            content: content,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'AnnunciPreferitiRoute';
 
-  static const _i5.PageInfo<AnnunciPreferitiRouteArgs> page =
-      _i5.PageInfo<AnnunciPreferitiRouteArgs>(name);
-}
-
-class AnnunciPreferitiRouteArgs {
-  const AnnunciPreferitiRouteArgs({
-    required this.content,
-    this.key,
-  });
-
-  final String content;
-
-  final _i6.Key? key;
-
-  @override
-  String toString() {
-    return 'AnnunciPreferitiRouteArgs{content: $content, key: $key}';
-  }
+  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }

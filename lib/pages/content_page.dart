@@ -10,9 +10,9 @@ class ContentPage extends StatelessWidget {
   Widget build(BuildContext context) => AutoTabsScaffold(
         animationCurve: Curves.easeInQuad,
         routes: [
-          AnnunciDipRoute(content: 'Offerte lavoro per assunzioni'),
-          AnnunciDipRoute(content: 'Offerte lavoro per freelance'),
-          AnnunciPreferitiRoute(content: 'Offerte lavoro preferite'),
+          AnnunciDipRoute(),
+          AnnunciFreelanceRoute(),
+          AnnunciPreferitiRoute(),
         ],
         transitionBuilder: (context, child, animation) => child,
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavigationBar(

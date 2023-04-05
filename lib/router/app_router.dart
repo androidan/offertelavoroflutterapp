@@ -11,7 +11,7 @@ class AppRouter extends $AppRouter {
   final List<AutoRoute> routes = [
     AutoRoute(page: ContentRoute.page, path: '/', children: [
       AutoRoute(page: AnnunciDipRoute.page),
-      AutoRoute(page: AnnunciDipRoute.page),
+      AutoRoute(page: AnnunciFreelanceRoute.page),
       AutoRoute(page: AnnunciPreferitiRoute.page)
     ]),
   ];
