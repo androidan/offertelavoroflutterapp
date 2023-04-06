@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:offerte_lavoro_flutter_app/mocks.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
@@ -35,8 +36,32 @@ class AnnunciDipPage extends StatelessWidget {
             topRight: Radius.circular(24.0),
           ),
           panel: JobSlidingPanelOverview(),
-          body: _body(context),
+          body: OfflineBuilder(
+            connectivityBuilder: (context, connectivity, child) =>
+                connectivity == ConnectivityResult.none
+                    ? _notConnectedBody(context)
+                    : child,
+            child: _body(context),
+          ),
         ),
+      );
+
+  Widget _notConnectedBody(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.wifi_off,
+            color: Colors.grey,
+            size: 128,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 24.0),
+            child: Text(
+              'Nessuna connessione a internet',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+        ],
       );
 
   Widget _body(BuildContext context) => ListView(
