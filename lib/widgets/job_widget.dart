@@ -42,7 +42,7 @@ class JobWidget extends StatelessWidget {
                   color: Colors.green.shade100,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: const Center(
+                child: Center(
                   child: AutoSizeText(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -50,6 +50,7 @@ class JobWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),
@@ -64,7 +65,7 @@ class JobWidget extends StatelessWidget {
                   color: Colors.lightBlue.shade100,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: const Center(
+                child: Center(
                   child: AutoSizeText(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -72,6 +73,7 @@ class JobWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),

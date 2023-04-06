@@ -16,10 +16,9 @@ class ContentPage extends StatelessWidget {
         ],
         transitionBuilder: (context, child, animation) => child,
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavigationBar(
-          backgroundColor: Colors.grey.shade200,
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          selectedItemColor: Theme.of(context).primaryColorDark,
           items: [
             const BottomNavigationBarItem(
                 icon: Icon(

@@ -11,7 +11,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 @RoutePage()
 class AnnunciDipPage extends StatelessWidget {
   final slidingUpPanelController = PanelController();
-  //const AnnunciDipPage({super.key});
 
   void onJobWidgetPressed() {
     if (slidingUpPanelController.isAttached) {
@@ -21,10 +20,13 @@ class AnnunciDipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const JobAppBar(
-          child: AppBarCustom('Offerte lavoro per assunzioni'),
+        appBar: JobAppBar(
+          child: AppBarCustom(
+            'Offerte lavoro per assunzioni',
+          ),
         ),
         body: SlidingUpPanel(
+          color: Theme.of(context).colorScheme.surface,
           controller: slidingUpPanelController,
           minHeight: 0,
           maxHeight: MediaQuery.of(context).size.height,

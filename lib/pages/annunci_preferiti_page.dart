@@ -55,7 +55,7 @@ class AnnunciPreferitiPage extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       Icons.remove_circle_outline,
-                      color: Theme.of(context).primaryColorDark,
+                      //color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),

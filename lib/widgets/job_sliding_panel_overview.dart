@@ -10,7 +10,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          jobHeader(),
+          jobHeader(context),
           jobDescription(),
           buttomSaveJob(),
         ],
@@ -18,7 +18,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
     );
   }
 
-  Widget jobHeader() => Padding(
+  Widget jobHeader(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Column(
           children: [
@@ -41,7 +41,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            _jobLabel(),
+            _jobLabel(context),
             const SizedBox(
               height: 16,
             ),
@@ -67,7 +67,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
         ],
       );
 
-  Widget _jobLabel() => Row(
+  Widget _jobLabel(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -77,7 +77,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               color: Colors.green.shade100,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: const Center(
+            child: Center(
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -85,6 +85,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
@@ -99,7 +100,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               color: Colors.lightBlue.shade100,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: const Center(
+            child: Center(
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -107,6 +108,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
@@ -121,7 +123,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               color: Colors.yellow.shade300,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: const Center(
+            child: Center(
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -129,6 +131,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
@@ -142,24 +145,30 @@ class JobSlidingPanelOverview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.factory_rounded),
-            Container(
-              child: AutoSizeText(
-                "Azienda: Neting",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Container(
+                child: AutoSizeText(
+                  "Azienda: Neting",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                width: 100,
               ),
-              width: 100,
             ),
             const SizedBox(
               width: 80,
             ),
             Icon(Icons.euro),
-            Container(
-              width: 150,
-              child: AutoSizeText(
-                "20-25k da valutare a seconda dell'esperienza",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Container(
+                width: 150,
+                child: AutoSizeText(
+                  "20-25k da valutare a seconda dell'esperienza",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

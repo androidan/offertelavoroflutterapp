@@ -19,7 +19,7 @@ class FilterItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
           color: selected
               ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).primaryColorDark,
+              : Theme.of(context).primaryColor,
         ),
         child: Row(
           children: [
@@ -38,13 +38,14 @@ class FilterItem extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 name,
                 style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                    color: selected
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).colorScheme.onSecondary),
+                      color: selected ? Theme.of(context).primaryColor : null,
+                      fontSize: 16,
+                      //letterSpacing: 2,
+                    ),
               ),
             ),
           ],

@@ -22,6 +22,7 @@ class AnnunciFreelancePage extends StatelessWidget {
         child: AppBarCustom('Offerte lavoro per Freelance'),
       ),
       body: SlidingUpPanel(
+        color: Theme.of(context).colorScheme.onSecondary,
         controller: slidingUpPanelController,
         minHeight: 0,
         maxHeight: MediaQuery.of(context).size.height,
