@@ -32,13 +32,13 @@ abstract class $AppRouter extends _i5.RootStackRouter {
     AnnunciFreelanceRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.AnnunciFreelancePage(),
+        child: _i2.AnnunciFreelancePage(),
       );
     },
     AnnunciDipRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.AnnunciDipPage(),
+        child: _i3.AnnunciDipPage(),
       );
     },
     AnnunciPreferitiRoute.name: (routeData) {
