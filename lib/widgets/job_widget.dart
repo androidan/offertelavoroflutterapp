@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 
 class JobWidget extends StatelessWidget {
-  //final Coin coin;
+  final AnnuncioModel annuncio;
   final void Function()? onPressed;
 
-  const JobWidget({
+  const JobWidget(
+    this.annuncio, {
     this.onPressed,
   });
 
@@ -13,21 +16,21 @@ class JobWidget extends StatelessWidget {
   Widget build(BuildContext context) => InkWell(
         onTap: onPressed,
         child: ListTile(
-          title: const Text(
-            'Mobile Junior Developer ',
+          title: Text(
+            annuncio.titolo,
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          subtitle: const Text(
-            'Azienda: Gruppo Maggioli',
+          subtitle: Text(
+            DateFormat("dd MMM").format(annuncio.jobPosted),
           ),
           leading: Container(
             width: 45,
             height: 45,
             child: Center(
                 child: Text(
-              '👨‍💻',
+              annuncio.emoji,
               style: TextStyle(fontSize: 30),
             )),
           ),
@@ -46,7 +49,7 @@ class JobWidget extends StatelessWidget {
                   child: AutoSizeText(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    'Junior',
+                    annuncio.seniority!,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -69,7 +72,7 @@ class JobWidget extends StatelessWidget {
                   child: AutoSizeText(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    'Full time',
+                    annuncio.contratto!,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/cubits/dark_mode_cubit.dart';
 import 'package:offerte_lavoro_flutter_app/pages/content_page.dart';
+import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
 import 'package:offerte_lavoro_flutter_app/router/app_router.dart';
 import 'package:offerte_lavoro_flutter_app/router/app_router.gr.dart';
 
@@ -14,19 +15,22 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(_) {
-    return BlocProvider(
-        create: (_) => DarkModeCubit(),
-        child: _themeSelector(
-          (context, mode) => MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Offerte lavoro flutter app',
-            theme: _theme(context),
-            darkTheme: _darkTheme(context),
-            themeMode: mode,
-            routerDelegate: AutoRouterDelegate(_appRouter),
-            routeInformationParser: _appRouter.defaultRouteParser(),
-          ),
-        ));
+    return RepositoryProvider(
+      create: (_) => AnnuncioRepository(),
+      child: BlocProvider(
+          create: (_) => DarkModeCubit(),
+          child: _themeSelector(
+            (context, mode) => MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              title: 'Offerte lavoro flutter app',
+              theme: _theme(context),
+              darkTheme: _darkTheme(context),
+              themeMode: mode,
+              routerDelegate: AutoRouterDelegate(_appRouter),
+              routeInformationParser: _appRouter.defaultRouteParser(),
+            ),
+          )),
+    );
   }
 
   Widget _themeSelector(

@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:offerte_lavoro_flutter_app/blocs/bloc/annuncio_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/mocks.dart';
+import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
+import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_sliding_panel_overview.dart';
@@ -118,20 +122,52 @@ class AnnunciDipPage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 16),
               height: 640,
-              child: ListView.separated(
-                itemBuilder: (content, index) => JobWidget(
-                  onPressed: onJobWidgetPressed,
-                ),
-                itemCount: 10,
-                separatorBuilder: (context, index) => const Divider(
-                  height: 8,
-                  indent: 20,
-                  endIndent: 20,
-                  thickness: 1,
+              child: BlocProvider(
+                create: (context) => AnnuncioBloc(
+                  annuncioRepository: context.read<AnnuncioRepository>(),
+                )..fetchAnnunci(),
+                child: BlocBuilder<AnnuncioBloc, AnnuncioState>(
+                  builder: (context, state) {
+                    if (state is FetchedAnnuncioState) {
+                      return _annunciWidget(annunci: state.annunci);
+                    } else if (state is NoAnnuncioState) {
+                      return _noAnnunciWidget();
+                    } else if (state is ErrorAnnuncioState) {
+                      return _errorAnnunciWidget();
+                    } else if (state is FetchingAnnuncioState) {
+                      return _fetchingAnnunciWidget();
+                    }
+                    return Container();
+                  },
                 ),
               ),
             ),
           ],
         ),
+      );
+
+  Widget _annunciWidget({required List<AnnuncioModel> annunci}) =>
+      ListView.separated(
+        itemBuilder: (content, index) => JobWidget(
+          annunci[index],
+          onPressed: onJobWidgetPressed,
+        ),
+        itemCount: annunci.length,
+        separatorBuilder: (context, index) => const Divider(
+          height: 8,
+          indent: 20,
+          endIndent: 20,
+          thickness: 1,
+        ),
+      );
+
+  Widget _noAnnunciWidget() =>
+      const Center(child: Text('Nessuna annuncio disponibile'));
+
+  Widget _errorAnnunciWidget() => const Center(
+      child: Text('Errore nell\'ottenere l\'elenco degli annunci'));
+      
+  Widget _fetchingAnnunciWidget() => Center(
+        child: CircularProgressIndicator(),
       );
 }
