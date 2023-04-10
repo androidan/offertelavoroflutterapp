@@ -1,9 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
 
 class JobSlidingPanelOverview extends StatelessWidget {
   final ScrollController _firstController = ScrollController();
+  final AnnuncioModel annuncioModel;
+
+  JobSlidingPanelOverview({required this.annuncioModel});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +39,14 @@ class JobSlidingPanelOverview extends StatelessWidget {
               height: 8,
             ),
             _jobAction(),
-            Text(
-              "Sviluppatore Junior Mobile e Webapp",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                annuncioModel.titolo,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
             ),
             const SizedBox(
               height: 8,
@@ -53,6 +63,13 @@ class JobSlidingPanelOverview extends StatelessWidget {
   Widget _jobAction() => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 65.0),
+            child: Text(
+              "Data pubblicazione: " +
+                  DateFormat("dd MMMM HH:MM").format(annuncioModel.jobPosted),
+            ),
+          ),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.favorite_border_outlined),
@@ -81,7 +98,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                'Junior',
+                annuncioModel.seniority!,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -104,7 +121,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                'Full time',
+                annuncioModel.contratto!,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -127,7 +144,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                'Ibrido',
+                annuncioModel.team!,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -149,7 +166,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
                 child: AutoSizeText(
-                  "Azienda: Neting",
+                  annuncioModel.nomeAzienda,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -165,7 +182,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: Container(
                 width: 150,
                 child: AutoSizeText(
-                  "20-25k da valutare a seconda dell'esperienza",
+                  annuncioModel.retribuzione!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -176,7 +193,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
       );
 
   Widget jobDescription() => Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: SizedBox(
           height: 400,
           child: Scrollbar(
@@ -195,7 +212,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: Text(
-                    "S.E.C. - System Engineering Consulting, azienda di consulenza con ventennale esperienza nello sviluppo di APP, ricerca Mobile Developer da inserire nel proprio organico.\n\nRequisiti essenziali:\n•\tConoscenza di Swift \n•\tConoscenza di Flutter\n\nRequisiti preferenziali:\n•\tEsperienza con Swift e Flutter \n•\tEsperienza nella costruzione e distribuzione di app mobile per iOS e Android \n•\tComprensione della programmazione orientata a oggetti e pattern di progettazione\n•\tEsperienza con Git e controllo versione \n•\tAbilità di debug e risoluzione dei problemi \n•\tAbilità comunicative e capacità di lavorare in un ambiente di squadra\n\nIl candidato ideale è motivato e determinato e ha dimestichezza con lo sviluppo mobile ed i relativi strumenti, è curioso verso le nuove tecnologie ed ama mettersi in gioco con linguaggi e piattaforme diversificate. \n\nTi offriamo: \n•\tContratto indeterminato, previo periodo di prova\n•\tSmarworking due giorni alla settimana\n•\tSede di lavoro a Milano, a 20 metri dalla fermata Gambara\n•\tFormazione e affiancamento costante con i nostri consulenti senior\n•\tRetribuzione da definire in base all'esperienza\n•\tConcrete possibilità di crescita professionale\n",
+                    annuncioModel.descrizioneOfferta,
                     style: TextStyle(),
                     softWrap: true,
                   ),

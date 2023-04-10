@@ -23,7 +23,7 @@ class JobWidget extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            DateFormat("dd MMM").format(annuncio.jobPosted),
+            DateFormat("dd MMMM HH:MM").format(annuncio.jobPosted),
           ),
           leading: Container(
             width: 45,

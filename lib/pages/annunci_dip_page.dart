@@ -13,10 +13,19 @@ import 'package:offerte_lavoro_flutter_app/widgets/job_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 @RoutePage()
-class AnnunciDipPage extends StatelessWidget {
-  final slidingUpPanelController = PanelController();
+class AnnunciDipPage extends StatefulWidget {
+  @override
+  State<AnnunciDipPage> createState() => _AnnunciDipPageState();
+}
 
-  void onJobWidgetPressed() {
+class _AnnunciDipPageState extends State<AnnunciDipPage> {
+  final slidingUpPanelController = PanelController();
+  AnnuncioModel? currentAnnuncio;
+
+  void onJobWidgetPressed(AnnuncioModel annuncioModel) {
+    setState(() {
+      currentAnnuncio = annuncioModel;
+    });
     if (slidingUpPanelController.isAttached) {
       slidingUpPanelController.open();
     }
@@ -41,7 +50,7 @@ class AnnunciDipPage extends StatelessWidget {
             topLeft: Radius.circular(24.0),
             topRight: Radius.circular(24.0),
           ),
-          panel: JobSlidingPanelOverview(),
+          panel: currentAnnuncio == null ? SizedBox() : JobSlidingPanelOverview( annuncioModel: currentAnnuncio!),
           body: OfflineBuilder(
             connectivityBuilder: (context, connectivity, child) =>
                 connectivity == ConnectivityResult.none
@@ -150,7 +159,7 @@ class AnnunciDipPage extends StatelessWidget {
       ListView.separated(
         itemBuilder: (content, index) => JobWidget(
           annunci[index],
-          onPressed: onJobWidgetPressed,
+          onPressed: () => onJobWidgetPressed(annunci[index]),
         ),
         itemCount: annunci.length,
         separatorBuilder: (context, index) => const Divider(
@@ -166,7 +175,7 @@ class AnnunciDipPage extends StatelessWidget {
 
   Widget _errorAnnunciWidget() => const Center(
       child: Text('Errore nell\'ottenere l\'elenco degli annunci'));
-      
+
   Widget _fetchingAnnunciWidget() => Center(
         child: CircularProgressIndicator(),
       );
