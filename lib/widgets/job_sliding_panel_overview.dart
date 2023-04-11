@@ -1,12 +1,24 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
+import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobSlidingPanelOverview extends StatelessWidget {
   final ScrollController _firstController = ScrollController();
   final AnnuncioModel annuncioModel;
+
+  var logger = Logger();
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(
+        TrasformToUrl.transformToUrl(annuncioModel.comeCandidarsi))) {
+      throw Exception('Could not launch ');
+    }
+  }
 
   JobSlidingPanelOverview({required this.annuncioModel});
 
@@ -64,8 +76,10 @@ class JobSlidingPanelOverview extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 65.0),
-            child: Text(
+            padding: const EdgeInsets.only(right: 60.0),
+            child: AutoSizeText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               "Data pubblicazione: " +
                   DateFormat("dd MMMM HH:MM").format(annuncioModel.jobPosted),
             ),
@@ -225,5 +239,5 @@ class JobSlidingPanelOverview extends StatelessWidget {
 
   Widget buttomSaveJob() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SlidingButton(text: 'CANDIDATI', onPressed: () {}));
+      child: SlidingButton(text: 'CANDIDATI', onPressed: () => _launchUrl()));
 }
