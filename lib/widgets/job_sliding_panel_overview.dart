@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
+import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -76,7 +77,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 60.0),
+            padding: EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 2),
             child: AutoSizeText(
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -194,7 +195,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
-                width: 150,
+                width: SizeConfig.blockSizeHorizontal * 20,
                 child: AutoSizeText(
                   annuncioModel.retribuzione!,
                   maxLines: 1,
@@ -209,7 +210,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
   Widget jobDescription() => Padding(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
-          height: 400,
+          height: SizeConfig.blockSizeVertical * 37,
           child: Scrollbar(
             thumbVisibility: true,
             controller: _firstController,

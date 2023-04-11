@@ -6,6 +6,7 @@ import 'package:offerte_lavoro_flutter_app/blocs/bloc/annuncio_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/mocks.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
+import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_sliding_panel_overview.dart';
@@ -32,34 +33,39 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: JobAppBar(
-          child: AppBarCustom(
-            'Offerte lavoro per assunzioni',
-          ),
+  Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    return Scaffold(
+      appBar: JobAppBar(
+        child: AppBarCustom(
+          'Offerte lavoro per assunzioni',
         ),
-        body: SlidingUpPanel(
-          color: Theme.of(context).colorScheme.surface,
-          controller: slidingUpPanelController,
-          minHeight: 0,
-          maxHeight: MediaQuery.of(context).size.height,
-          margin: const EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
-          backdropEnabled: true,
-          backdropOpacity: 0.75,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.0),
-            topRight: Radius.circular(24.0),
-          ),
-          panel: currentAnnuncio == null ? SizedBox() : JobSlidingPanelOverview( annuncioModel: currentAnnuncio!),
-          body: OfflineBuilder(
-            connectivityBuilder: (context, connectivity, child) =>
-                connectivity == ConnectivityResult.none
-                    ? _notConnectedBody(context)
-                    : child,
-            child: _body(context),
-          ),
+      ),
+      body: SlidingUpPanel(
+        color: Theme.of(context).colorScheme.surface,
+        controller: slidingUpPanelController,
+        minHeight: 0,
+        maxHeight: MediaQuery.of(context).size.height,
+        margin: const EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
+        backdropEnabled: true,
+        backdropOpacity: 0.75,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.0),
+          topRight: Radius.circular(24.0),
         ),
-      );
+        panel: currentAnnuncio == null
+            ? SizedBox()
+            : JobSlidingPanelOverview(annuncioModel: currentAnnuncio!),
+        body: OfflineBuilder(
+          connectivityBuilder: (context, connectivity, child) =>
+              connectivity == ConnectivityResult.none
+                  ? _notConnectedBody(context)
+                  : child,
+          child: _body(context),
+        ),
+      ),
+    );
+  }
 
   Widget _notConnectedBody(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +136,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 16),
-              height: 640,
+              height: SizeConfig.blockSizeVertical * 55,
               child: BlocProvider(
                 create: (context) => AnnuncioBloc(
                   annuncioRepository: context.read<AnnuncioRepository>(),

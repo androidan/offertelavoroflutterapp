@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
 
 class JobFreelanceSlidingPanelOverview extends StatelessWidget {
@@ -63,9 +64,9 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
       );
 
   Widget jobDescription() => Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: EdgeInsets.all(32.0),
         child: SizedBox(
-          height: 400,
+          height: SizeConfig.blockSizeVertical * 42,
           child: Scrollbar(
             thumbVisibility: true,
             controller: _firstController,

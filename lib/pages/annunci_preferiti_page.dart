@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 
@@ -8,13 +9,16 @@ class AnnunciPreferitiPage extends StatelessWidget {
   const AnnunciPreferitiPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: const JobAppBar(
-        child: AppBarCustom('Offerte lavoro salvate'),
-      ),
-      body: _body(
-        context,
-      ));
+  Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    return Scaffold(
+        appBar: const JobAppBar(
+          child: AppBarCustom('Offerte lavoro salvate'),
+        ),
+        body: _body(
+          context,
+        ));
+  }
 
   Widget _body(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 16),
@@ -30,7 +34,7 @@ class AnnunciPreferitiPage extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(top: 16),
-              height: 640,
+              height: SizeConfig.blockSizeVertical * 60,
               child: ListView.separated(
                 itemBuilder: (content, index) => ListTile(
                   title: const Text(
