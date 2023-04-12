@@ -11,6 +11,7 @@ import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_sliding_panel_overview.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_widget.dart';
+import 'package:offerte_lavoro_flutter_app/widgets/shimmed_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 @RoutePage()
@@ -164,7 +165,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
   Widget _annunciWidget({required List<AnnuncioModel> annunci}) =>
       ListView.separated(
         itemBuilder: (content, index) => JobWidget(
-          annunci[index],
+          annuncio: annunci[index],
           onPressed: () => onJobWidgetPressed(annunci[index]),
         ),
         itemCount: annunci.length,
@@ -182,7 +183,5 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
   Widget _errorAnnunciWidget() => const Center(
       child: Text('Errore nell\'ottenere l\'elenco degli annunci'));
 
-  Widget _fetchingAnnunciWidget() => Center(
-        child: CircularProgressIndicator(),
-      );
+  Widget _fetchingAnnunciWidget() => ShimmedWidget(child: JobWidget.shimmed());
 }

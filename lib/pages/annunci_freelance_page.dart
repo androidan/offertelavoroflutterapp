@@ -9,6 +9,7 @@ import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_freelance_slinding_panel_overview.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_widget_freelance.dart';
+import 'package:offerte_lavoro_flutter_app/widgets/shimmed_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 @RoutePage()
@@ -49,7 +50,10 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
           topLeft: Radius.circular(24.0),
           topRight: Radius.circular(24.0),
         ),
-        panel: currentAnnuncio == null ? SizedBox() : JobFreelanceSlidingPanelOverview(annuncioFreelanceModel: currentAnnuncio!),
+        panel: currentAnnuncio == null
+            ? SizedBox()
+            : JobFreelanceSlidingPanelOverview(
+                annuncioFreelanceModel: currentAnnuncio!),
         body: _body(
           context,
         ),
@@ -69,7 +73,7 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 16),
-              height: SizeConfig.blockSizeVertical * 55,
+              height: SizeConfig.blockSizeVertical * 75,
               child: BlocProvider(
                 create: (context) => AnnuncioFreelanceBloc(
                   annuncioFreelanceRepository:
@@ -101,7 +105,7 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
           {required List<AnnuncioFreelanceModel> annunciFreelance}) =>
       ListView.separated(
         itemBuilder: (content, index) => JobWidgetFreelance(
-          annunciFreelance[index],
+          annuncioFreelance: annunciFreelance[index],
           onPressed: () => onJobWidgetFreelancePressed(annunciFreelance[index]),
         ),
         itemCount: annunciFreelance.length,
@@ -119,7 +123,6 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
   Widget _errorAnnunciFreelanceWidget() => const Center(
       child: Text('Errore nell\'ottenere l\'elenco degli annunci'));
 
-  Widget _fetchingAnnunciFreelanceWidget() => Center(
-        child: CircularProgressIndicator(),
-      );
+  Widget _fetchingAnnunciFreelanceWidget() =>
+      ShimmedWidget(child: JobWidgetFreelance.shimmed());
 }
