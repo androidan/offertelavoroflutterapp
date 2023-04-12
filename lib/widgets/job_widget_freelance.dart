@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:offerte_lavoro_flutter_app/models/annuncio_freelance_model.dart';
 
 class JobWidgetFreelance extends StatelessWidget {
   //final Coin coin;
   final void Function()? onPressed;
 
-  const JobWidgetFreelance({
+  const JobWidgetFreelance(AnnuncioFreelanceModel annunciFreelance, {
     this.onPressed,
   });
 

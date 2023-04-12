@@ -48,8 +48,8 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 1,
             ),
             _jobAction(),
             Padding(
@@ -61,12 +61,12 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 1,
             ),
             _jobLabel(context),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 2,
             ),
             _jobFactoryAndRal(),
           ],
@@ -103,7 +103,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 70,
+            width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.green.shade100,
@@ -113,7 +113,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                annuncioModel.seniority!,
+                annuncioModel.seniority ?? " - ",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -122,11 +122,11 @@ class JobSlidingPanelOverview extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 8,
+          SizedBox(
+            width: SizeConfig.blockSizeVertical * 1,
           ),
           Container(
-            width: 70,
+            width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.lightBlue.shade100,
@@ -136,7 +136,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                annuncioModel.contratto!,
+                annuncioModel.contratto ?? " - ",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -145,11 +145,11 @@ class JobSlidingPanelOverview extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 8,
+          SizedBox(
+            width: SizeConfig.blockSizeVertical * 1,
           ),
           Container(
-            width: 70,
+            width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.yellow.shade300,
@@ -159,7 +159,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                annuncioModel.team!,
+                annuncioModel.team ?? " - ",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -188,16 +188,16 @@ class JobSlidingPanelOverview extends StatelessWidget {
                 width: 100,
               ),
             ),
-            const SizedBox(
-              width: 80,
+            SizedBox(
+              width: SizeConfig.blockSizeHorizontal * 28,
             ),
             Icon(Icons.euro),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
-                width: SizeConfig.blockSizeHorizontal * 20,
+                width: SizeConfig.blockSizeHorizontal * 18,
                 child: AutoSizeText(
-                  annuncioModel.retribuzione!,
+                  annuncioModel.retribuzione ?? ' - ',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -210,7 +210,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
   Widget jobDescription() => Padding(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
-          height: SizeConfig.blockSizeVertical * 37,
+          height: SizeConfig.blockSizeVertical * 36,
           child: Scrollbar(
             thumbVisibility: true,
             controller: _firstController,

@@ -86,7 +86,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
       );
 
   Widget _body(BuildContext context) => ListView(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           bottom: 16,
         ),
         children: [

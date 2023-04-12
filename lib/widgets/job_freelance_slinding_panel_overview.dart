@@ -1,10 +1,27 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+import 'package:offerte_lavoro_flutter_app/models/annuncio_freelance_model.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
+import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobFreelanceSlidingPanelOverview extends StatelessWidget {
   final ScrollController _firstController = ScrollController();
+  final AnnuncioFreelanceModel annuncioFreelanceModel;
+
+  var logger = Logger();
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(
+        TrasformToUrl.transformToUrl(annuncioFreelanceModel.comeCandidarsi))) {
+      throw Exception('Could not launch ');
+    }
+  }
+
+  JobFreelanceSlidingPanelOverview({required this.annuncioFreelanceModel});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +48,16 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              width: SizeConfig.blockSizeVertical * 1,
             ),
             _jobAction(),
-            const Text(
-              "Esempio | Sviluppo app mobile",
+            Text(
+              annuncioFreelanceModel.codice,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              width: SizeConfig.blockSizeVertical * 5,
             ),
           ],
         ),
@@ -49,6 +66,16 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
   Widget _jobAction() => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 2),
+            child: AutoSizeText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              "Data pubblicazione: " +
+                  DateFormat("dd MMMM HH:MM")
+                      .format(annuncioFreelanceModel.jobPosted),
+            ),
+          ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.favorite_border_outlined),
@@ -66,7 +93,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
   Widget jobDescription() => Padding(
         padding: EdgeInsets.all(32.0),
         child: SizedBox(
-          height: SizeConfig.blockSizeVertical * 42,
+          height: SizeConfig.blockSizeVertical * 44,
           child: Scrollbar(
             thumbVisibility: true,
             controller: _firstController,
@@ -80,10 +107,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "Questa non è una vera proposta di lavoro. È un annuncio di esempio per mostrare i dati richiesti dal nostro sistema per pubblicare un’offerta di lavoro per freelance Flutter.\n\nIn questa sezione viene descritto il progetto proposto.",
+                    annuncioFreelanceModel.descrizioneDelProgetto,
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -95,10 +122,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "In questa sezione viene descritto il tipo di lavoro che si aspetta dal freelance chi commissiona il lavoro (chiediamo esplicitamente più dettagli possibili, ad esempio",
+                    annuncioFreelanceModel.richiestaDiLavoro,
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -110,10 +137,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "In questa sezione viene descritto il tipo di lavoro che si aspetta dal freelance chi commissiona il lavoro (chiediamo esplicitamente più dettagli possibili, ad esempio",
+                    annuncioFreelanceModel.tipoDiRelazione ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -125,10 +152,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "Indica quanto tempo ha a disposizione il freelance per il completamento della commessa e se c’è del carico di lavoro aspettato (es. sono richieste 20 ore a settimana perché lavora con altri).",
+                    annuncioFreelanceModel.tempistiche ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -140,10 +167,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "Indica il compenso offerto per questo lavoro, specificando l'unità di misura (es. €70/ora oppure €7.500,00 a progetto completato).",
+                    annuncioFreelanceModel.budget ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -155,10 +182,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "Indica le modalità e le tempistiche del pagamento.",
+                    annuncioFreelanceModel.tempisticheDiPagamento ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -170,10 +197,10 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "No",
+                    annuncioFreelanceModel.nda ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -186,5 +213,5 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
 
   Widget buttomSaveJob() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SlidingButton(text: 'CANDIDATI', onPressed: () {}));
+      child: SlidingButton(text: 'CANDIDATI', onPressed: () => _launchUrl()));
 }

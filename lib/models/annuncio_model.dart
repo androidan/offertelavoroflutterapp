@@ -32,16 +32,16 @@ class AnnuncioModel {
     final jobPosted =
         DateTime.parse(map["properties"]["Job Posted"]["created_time"]);
     final team = map["properties"]["Team"]["select"] == null
-        ? ""
+        ? " - "
         : map["properties"]["Team"]["select"]["name"];
     final contratto = map["properties"]["Contratto"]["select"] == null
-        ? ""
+        ? " - "
         : map["properties"]["Contratto"]["select"]["name"];
     final seniority = map["properties"]["Seniority"]["select"] == null
-        ? ""
+        ? " - "
         : map["properties"]["Seniority"]["select"]["name"];
     final retribuzione = map["properties"]["Retribuzione"]['rich_text'].isEmpty
-        ? ""
+        ? " - "
         : map["properties"]["Retribuzione"]['rich_text'][0]['plain_text'];
     final titolo = map["properties"]["Name"]['title'][0]['plain_text'];
     final descrizioneOfferta =
@@ -52,7 +52,7 @@ class AnnuncioModel {
     final comeCandidarsi =
         map["properties"]["Come candidarsi"]['rich_text'][0]['plain_text'];
     final luogo = map["properties"]["Località"]['rich_text'].isEmpty
-        ? ""
+        ? " - "
         : map["properties"]["Località"]['rich_text'][0]['plain_text'];
     final nomeAzienda =
         map["properties"]["Nome azienda"]['rich_text'][0]['plain_text'];
