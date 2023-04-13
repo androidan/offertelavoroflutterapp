@@ -10,20 +10,21 @@ class AnnuncioFreelanceModel {
   final String descrizioneDelProgetto;
   final String? tipoDiRelazione;
   final String? tempistiche;
+  final String? url;
 
-  AnnuncioFreelanceModel({
-    required this.emoji,
-    required this.jobPosted,
-    required this.comeCandidarsi,
-    required this.richiestaDiLavoro,
-    required this.budget,
-    required this.nda,
-    required this.codice,
-    required this.tempisticheDiPagamento,
-    required this.descrizioneDelProgetto,
-    required this.tipoDiRelazione,
-    required this.tempistiche,
-  });
+  AnnuncioFreelanceModel(
+      {required this.emoji,
+      required this.jobPosted,
+      required this.comeCandidarsi,
+      required this.richiestaDiLavoro,
+      required this.budget,
+      required this.nda,
+      required this.codice,
+      required this.tempisticheDiPagamento,
+      required this.descrizioneDelProgetto,
+      required this.tipoDiRelazione,
+      required this.tempistiche,
+      required this.url});
 
   factory AnnuncioFreelanceModel.fromMap(Map<String, dynamic> map) {
     final emoji = map["icon"]["emoji"];
@@ -60,6 +61,7 @@ class AnnuncioFreelanceModel {
     final tempistiche = map["properties"]["Tempistiche"]['rich_text'].isEmpty
         ? " - "
         : map["properties"]["Tempistiche"]['rich_text'][0]['plain_text'];
+    final url = map["url"];
 
     return AnnuncioFreelanceModel(
       emoji: emoji,
@@ -73,6 +75,7 @@ class AnnuncioFreelanceModel {
       descrizioneDelProgetto: descrizioneDelProgetto,
       tipoDiRelazione: tipoDiRelazione,
       tempistiche: tempistiche,
+      url: url,
     );
   }
 }

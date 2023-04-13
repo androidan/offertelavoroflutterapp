@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
+import 'package:offerte_lavoro_flutter_app/util/share/share.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
@@ -92,7 +93,7 @@ class JobSlidingPanelOverview extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => ShareClass.share(annuncioModel.url!),
               icon: Icon(Icons.share),
             ),
           ),
@@ -185,7 +186,6 @@ class JobSlidingPanelOverview extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                width: 100,
               ),
             ),
             SizedBox(
@@ -195,7 +195,6 @@ class JobSlidingPanelOverview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
-                width: SizeConfig.blockSizeHorizontal * 18,
                 child: AutoSizeText(
                   annuncioModel.retribuzione ?? ' - ',
                   maxLines: 1,

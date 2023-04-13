@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_freelance_model.dart';
+import 'package:offerte_lavoro_flutter_app/util/share/share.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
@@ -83,7 +84,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => ShareClass.share(annuncioFreelanceModel.url!),
               icon: const Icon(Icons.share),
             ),
           ),
