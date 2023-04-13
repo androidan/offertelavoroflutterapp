@@ -61,7 +61,15 @@ class JobWidget extends StatelessWidget {
                 width: 70,
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade100,
+                  color: annuncio != null
+                      ? (annuncio!.seniority! == 'Junior'
+                          ? Colors.green.shade100
+                          : annuncio!.seniority! == 'Mid'
+                              ? Colors.yellow.shade300
+                              : annuncio!.seniority! == 'Senior'
+                                  ? Colors.red.shade200
+                                  : Colors.grey.shade300)
+                      : Colors.grey,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Center(
@@ -90,7 +98,11 @@ class JobWidget extends StatelessWidget {
                 width: 70,
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: Colors.lightBlue.shade100,
+                  color: annuncio != null
+                      ? (annuncio!.contratto! == 'Full time'
+                          ? Colors.blue.shade100
+                          : Colors.grey.shade300)
+                      : Colors.grey,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Center(

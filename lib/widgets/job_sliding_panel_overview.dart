@@ -107,7 +107,13 @@ class JobSlidingPanelOverview extends StatelessWidget {
             width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Colors.green.shade100,
+              color: annuncioModel.seniority! == 'Junior'
+                  ? Colors.green.shade100
+                  : annuncioModel.seniority! == 'Mid'
+                      ? Colors.yellow.shade300
+                      : annuncioModel.seniority! == 'Senior'
+                          ? Colors.red.shade200
+                          : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(5),
             ),
             child: Center(
@@ -130,7 +136,9 @@ class JobSlidingPanelOverview extends StatelessWidget {
             width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Colors.lightBlue.shade100,
+              color: annuncioModel.contratto! == 'Full time'
+                  ? Colors.blue.shade100
+                  : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(5),
             ),
             child: Center(
@@ -153,7 +161,11 @@ class JobSlidingPanelOverview extends StatelessWidget {
             width: 100,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Colors.yellow.shade300,
+              color: annuncioModel.team == 'Full Remote'
+                  ? Colors.purple.shade200
+                  : annuncioModel.team == 'Ibrido'
+                      ? Colors.yellow.shade300
+                      : Colors.red.shade200,
               borderRadius: BorderRadius.circular(5),
             ),
             child: Center(
