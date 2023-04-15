@@ -16,8 +16,10 @@ class ErrorAnnuncioState extends AnnuncioState {}
 class FetchedAnnuncioState extends AnnuncioState {
   final List<AnnuncioModel> annunci;
 
-  const FetchedAnnuncioState(this.annunci);
+   FetchedAnnuncioState(this.annunci);
 
   @override
   List<Object> get props => [annunci];
 }
+
+ 

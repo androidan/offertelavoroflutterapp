@@ -11,6 +11,7 @@ class AnnuncioModel {
   final String? luogo;
   final String nomeAzienda;
   final String? url;
+  bool inFavoritePage;
 
   AnnuncioModel({
     required this.emoji,
@@ -25,6 +26,7 @@ class AnnuncioModel {
     required this.retribuzione,
     required this.luogo,
     required this.url,
+    this.inFavoritePage = false,
   });
 
   factory AnnuncioModel.fromMap(Map<String, dynamic> map) {
@@ -71,6 +73,7 @@ class AnnuncioModel {
       nomeAzienda: nomeAzienda,
       titolo: titolo,
       url: url,
+      inFavoritePage: false,
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:offerte_lavoro_flutter_app/blocs/bloc/annuncio_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/mocks.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
-import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
@@ -21,6 +20,12 @@ class AnnunciDipPage extends StatefulWidget {
 }
 
 class _AnnunciDipPageState extends State<AnnunciDipPage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AnnuncioBloc>(context).add(FetchAnnuncioEvent());
+  }
+
   final slidingUpPanelController = PanelController();
   AnnuncioModel? currentAnnuncio;
 
@@ -42,7 +47,8 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
           'Offerte lavoro per assunzioni',
         ),
       ),
-      body: SlidingUpPanel(
+      body:
+          SlidingUpPanel(
         color: Theme.of(context).colorScheme.surface,
         controller: slidingUpPanelController,
         minHeight: 0,
@@ -54,9 +60,22 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
           topLeft: Radius.circular(24.0),
           topRight: Radius.circular(24.0),
         ),
-        panel: currentAnnuncio == null
+        onPanelClosed: () => setState(() {}),
+        panelBuilder: (context) => currentAnnuncio == null
             ? SizedBox()
-            : JobSlidingPanelOverview(annuncioModel: currentAnnuncio!),
+            : BlocBuilder<AnnuncioBloc, AnnuncioState>(
+                builder: (context, state) {
+                  if (state is FetchingAnnuncioState) {
+                    return SizedBox();
+                  } else {
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => setState(() {}));
+                    final products = (state as FetchedAnnuncioState).annunci;
+                  }
+                  return JobSlidingPanelOverview(
+                      annuncioModel: currentAnnuncio!);
+                },
+              ),
         body: OfflineBuilder(
           connectivityBuilder: (context, connectivity, child) =>
               connectivity == ConnectivityResult.none
@@ -138,24 +157,20 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
             Container(
               margin: const EdgeInsets.only(top: 16),
               height: SizeConfig.blockSizeVertical * 55,
-              child: BlocProvider(
-                create: (context) => AnnuncioBloc(
-                  annuncioRepository: context.read<AnnuncioRepository>(),
-                )..fetchAnnunci(),
-                child: BlocBuilder<AnnuncioBloc, AnnuncioState>(
-                  builder: (context, state) {
-                    if (state is FetchedAnnuncioState) {
-                      return _annunciWidget(annunci: state.annunci);
-                    } else if (state is NoAnnuncioState) {
-                      return _noAnnunciWidget();
-                    } else if (state is ErrorAnnuncioState) {
-                      return _errorAnnunciWidget();
-                    } else if (state is FetchingAnnuncioState) {
-                      return _fetchingAnnunciWidget();
-                    }
-                    return Container();
-                  },
-                ),
+              child: BlocBuilder<AnnuncioBloc, AnnuncioState>(
+                builder: (context, state) {
+                  if (state is FetchedAnnuncioState) {
+                    final annunci = (state as FetchedAnnuncioState).annunci;
+                    return _annunciWidget(annunci: state.annunci);
+                  } else if (state is NoAnnuncioState) {
+                    return _noAnnunciWidget();
+                  } else if (state is ErrorAnnuncioState) {
+                    return _errorAnnunciWidget();
+                  } else if (state is FetchingAnnuncioState) {
+                    return _fetchingAnnunciWidget();
+                  }
+                  return Container();
+                },
               ),
             ),
           ],

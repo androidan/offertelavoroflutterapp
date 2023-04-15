@@ -24,8 +24,16 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
         emit(ErrorAnnuncioState());
       }
     });
+
+    on<AnnuncioFavoriteEventToggle>((event, emit) {
+      final annunci = (state as FetchedAnnuncioState).annunci;
+      final annuncio = annunci.firstWhere(
+          (element) => element.titolo == event.annuncioModel.titolo);
+      annuncio.inFavoritePage = !annuncio.inFavoritePage;
+
+      emit(FetchedAnnuncioState(annunci));
+    });
   }
 
   void fetchAnnunci() => add(FetchAnnuncioEvent());
 }
-

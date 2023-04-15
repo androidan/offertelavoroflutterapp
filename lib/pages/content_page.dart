@@ -20,14 +20,14 @@ class ContentPage extends StatelessWidget {
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
           items: [
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(
                   Icons.work_history_rounded,
                 ),
                 label: 'Dipendenti'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.work_history_rounded), label: 'Freelance'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border_rounded), label: 'Preferiti'),
           ],
         ),

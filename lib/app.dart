@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:offerte_lavoro_flutter_app/blocs/bloc/annuncio_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/cubits/dark_mode_cubit.dart';
-import 'package:offerte_lavoro_flutter_app/pages/content_page.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_freelance_repository.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
 import 'package:offerte_lavoro_flutter_app/router/app_router.dart';
-import 'package:offerte_lavoro_flutter_app/router/app_router.gr.dart';
 
 class App extends StatelessWidget {
   final _appRouter = AppRouter();
@@ -17,16 +16,24 @@ class App extends StatelessWidget {
   @override
   Widget build(_) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(
-          create: (_) => AnnuncioRepository(),
-        ),
-        RepositoryProvider(
-          create: (context) => AnnuncioFreelanceRepository(),
-        ),
-      ],
-      child: BlocProvider(
-          create: (_) => DarkModeCubit(),
+        providers: [
+          RepositoryProvider(
+            create: (_) => AnnuncioRepository(),
+          ),
+          RepositoryProvider(
+            create: (context) => AnnuncioFreelanceRepository(),
+          ),
+        ],
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => DarkModeCubit(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  AnnuncioBloc(annuncioRepository: AnnuncioRepository()),
+            ),
+          ],
           child: _themeSelector(
             (context, mode) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
@@ -37,8 +44,8 @@ class App extends StatelessWidget {
               routerDelegate: AutoRouterDelegate(_appRouter),
               routeInformationParser: _appRouter.defaultRouteParser(),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget _themeSelector(

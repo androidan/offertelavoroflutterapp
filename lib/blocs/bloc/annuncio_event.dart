@@ -7,7 +7,9 @@ abstract class AnnuncioEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class FetchAnnuncioEvent extends AnnuncioEvent {}
 
-class FetchAnnuncioEvent extends AnnuncioEvent {
-
+class AnnuncioFavoriteEventToggle extends AnnuncioEvent {
+  final AnnuncioModel annuncioModel;
+  AnnuncioFavoriteEventToggle(this.annuncioModel);
 }
