@@ -7,6 +7,7 @@ import 'package:offerte_lavoro_flutter_app/mocks.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
+import 'package:offerte_lavoro_flutter_app/widgets/filter_item.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_sliding_panel_overview.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_widget.dart';
@@ -47,8 +48,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
           'Offerte lavoro per assunzioni',
         ),
       ),
-      body:
-          SlidingUpPanel(
+      body: SlidingUpPanel(
         color: Theme.of(context).colorScheme.surface,
         controller: slidingUpPanelController,
         minHeight: 0,
@@ -115,31 +115,56 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
         ],
       );
 
-  Widget _categories(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Text(
-                'Filtri',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+  Widget _categories(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Filtri',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                IconButton(
+                    onPressed: () {
+                      BlocProvider.of<AnnuncioBloc>(context)
+                          .add(ResetFiltriAnnunciEvent(Filtri.categories));
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.refresh_rounded))
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              height: 50,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                itemBuilder: (_, index) => Mocks.categories[index],
-                separatorBuilder: (_, __) => Container(width: 16),
-                itemCount: Mocks.categories.length,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-          ],
-        ),
+          ),
+          BlocBuilder<AnnuncioBloc, AnnuncioState>(
+            builder: (context, state) {
+              if (state is FetchedAnnuncioState) {
+                return Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  height: 50,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    itemBuilder: (_, index) => FilterItem(
+                        filtro: Filtri.categories[index],
+                        onQueryChanged: () {
+                          Filtri.categories[index].selected =
+                              !Filtri.categories[index].selected;
+
+                          BlocProvider.of<AnnuncioBloc>(context)
+                              .add(AnnuncioQueryEvent(Filtri.categories));
+                          setState(() {});
+                        }),
+                    separatorBuilder: (_, __) => Container(width: 16),
+                    itemCount: Filtri.categories.length,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                );
+              }
+              return Container();
+            },
+          ),
+        ],
       );
 
   Widget _annunciLavoro(BuildContext context) => Padding(
@@ -160,8 +185,8 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
               child: BlocBuilder<AnnuncioBloc, AnnuncioState>(
                 builder: (context, state) {
                   if (state is FetchedAnnuncioState) {
-                    final annunci = (state as FetchedAnnuncioState).annunci;
-                    return _annunciWidget(annunci: state.annunci);
+                    final annunci = (state).annunci;
+                    return _annunciWidget(annunci: annunci);
                   } else if (state is NoAnnuncioState) {
                     return _noAnnunciWidget();
                   } else if (state is ErrorAnnuncioState) {

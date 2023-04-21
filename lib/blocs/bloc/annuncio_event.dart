@@ -13,3 +13,13 @@ class AnnuncioFavoriteEventToggle extends AnnuncioEvent {
   final AnnuncioModel annuncioModel;
   AnnuncioFavoriteEventToggle(this.annuncioModel);
 }
+
+class AnnuncioQueryEvent extends AnnuncioEvent {
+  final List<Filtro> query;
+  AnnuncioQueryEvent(this.query);
+}
+
+class ResetFiltriAnnunciEvent extends AnnuncioEvent {
+  final List<Filtro> query;
+ResetFiltriAnnunciEvent(this.query);
+}
