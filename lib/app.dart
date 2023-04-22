@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/blocs/bloc/annuncio_bloc.dart';
+import 'package:offerte_lavoro_flutter_app/blocs/freelanceBloc/bloc/annuncio_freelance_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/cubits/dark_mode_cubit.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_freelance_repository.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
             create: (_) => AnnuncioRepository(),
           ),
           RepositoryProvider(
-            create: (context) => AnnuncioFreelanceRepository(),
+            create: (_) => AnnuncioFreelanceRepository(),
           ),
         ],
         child: MultiBlocProvider(
@@ -32,6 +33,10 @@ class App extends StatelessWidget {
             BlocProvider(
               create: (context) =>
                   AnnuncioBloc(annuncioRepository: AnnuncioRepository()),
+            ),
+            BlocProvider(
+              create: (context) => AnnuncioFreelanceBloc(
+                  annuncioFreelanceRepository: AnnuncioFreelanceRepository())..add(FetchAnnuncioFreelanceEvent()),
             ),
           ],
           child: _themeSelector(

@@ -10,3 +10,8 @@ abstract class AnnuncioFreelanceEvent extends Equatable {
 class FetchAnnuncioFreelanceEvent extends AnnuncioFreelanceEvent {
 
 }
+
+class AnnuncioFreelanceFavoriteEventToggle extends AnnuncioFreelanceEvent {
+  final AnnuncioFreelanceModel annuncioFreelanceModel;
+  AnnuncioFreelanceFavoriteEventToggle(this.annuncioFreelanceModel);
+}

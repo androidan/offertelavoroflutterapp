@@ -29,6 +29,9 @@ class _JobWidgetState extends State<JobWidget> {
           final annunci = (state as FetchedAnnuncioState).annunci;
           final annunciInWishList =
               annunci.where((it) => it.inFavoritePage).toList();
+          WidgetsBinding.instance.addPostFrameCallback((_) => {
+          if (this.mounted) {setState(() {})}
+          });
         },
         child: InkWell(
           onTap: widget.onPressed,

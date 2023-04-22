@@ -25,6 +25,16 @@ class AnnuncioFreelanceBloc
         emit(ErrorAnnuncioFreelanceState());
       }
     });
+
+//-------------------------Toggle preferiti-------------------------------------------------------
+    on<AnnuncioFreelanceFavoriteEventToggle>((event, emit) {
+      final annunciFreelance = (state as FetchedAnnuncioFreelanceState).annunci;
+      final annuncio = annunciFreelance.firstWhere(
+          (element) => element.codice == event.annuncioFreelanceModel.codice);
+      annuncio.inFavoritePage = !annuncio.inFavoritePage;
+
+      emit(FetchedAnnuncioFreelanceState(annunciFreelance));
+    });
   }
   void fetchAnnunciFreelance() => add(FetchAnnuncioFreelanceEvent());
 }

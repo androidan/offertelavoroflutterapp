@@ -19,6 +19,13 @@ class AnnunciFreelancePage extends StatefulWidget {
 }
 
 class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
+  // @override
+  // void initState() {
+    // super.initState();
+    // BlocProvider.of<AnnuncioFreelanceBloc>(context)
+        // .add(FetchAnnuncioFreelanceEvent());
+  // }
+
   final slidingUpPanelController = PanelController();
 
   AnnuncioFreelanceModel? currentAnnuncio;
@@ -50,10 +57,24 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
           topLeft: Radius.circular(24.0),
           topRight: Radius.circular(24.0),
         ),
+        onPanelClosed: () => setState(() {}),
         panel: currentAnnuncio == null
             ? SizedBox()
-            : JobFreelanceSlidingPanelOverview(
-                annuncioFreelanceModel: currentAnnuncio!),
+            : BlocBuilder<AnnuncioFreelanceBloc, AnnuncioFreelanceState>(
+                builder: (context, state) {
+                  if (state is FetchingAnnuncioFreelanceState) {
+                    return SizedBox();
+                  } else {
+                    WidgetsBinding.instance.addPostFrameCallback((_) => {
+                          if (this.mounted) {setState(() {})}
+                        });
+                    final annunci =
+                        (state as FetchedAnnuncioFreelanceState).annunci;
+                  }
+                  return JobFreelanceSlidingPanelOverview(
+                      annuncioFreelanceModel: currentAnnuncio!);
+                },
+              ),
         body: _body(
           context,
         ),
@@ -74,27 +95,23 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
             Container(
               margin: const EdgeInsets.only(top: 16),
               height: SizeConfig.blockSizeVertical * 75,
-              child: BlocProvider(
-                create: (context) => AnnuncioFreelanceBloc(
-                  annuncioFreelanceRepository:
-                      context.read<AnnuncioFreelanceRepository>(),
-                )..fetchAnnunciFreelance(),
-                child:
-                    BlocBuilder<AnnuncioFreelanceBloc, AnnuncioFreelanceState>(
-                  builder: (context, state) {
-                    if (state is FetchedAnnuncioFreelanceState) {
-                      return _annunciFreelanceWidget(
-                          annunciFreelance: state.annunci);
-                    } else if (state is NoAnnuncioFreelanceState) {
-                      return _noAnnunciFreelanceWidget();
-                    } else if (state is ErrorAnnuncioFreelanceState) {
-                      return _errorAnnunciFreelanceWidget();
-                    } else if (state is FetchingAnnuncioFreelanceState) {
-                      return _fetchingAnnunciFreelanceWidget();
-                    }
-                    return Container();
-                  },
-                ),
+              child: BlocBuilder<AnnuncioFreelanceBloc, AnnuncioFreelanceState>(
+                builder: (context, state) {
+                  if (state is FetchedAnnuncioFreelanceState) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) => {
+                          if (this.mounted) {setState(() {})}
+                        });
+                    return _annunciFreelanceWidget(
+                        annunciFreelance: state.annunci);
+                  } else if (state is NoAnnuncioFreelanceState) {
+                    return _noAnnunciFreelanceWidget();
+                  } else if (state is ErrorAnnuncioFreelanceState) {
+                    return _errorAnnunciFreelanceWidget();
+                  } else if (state is FetchingAnnuncioFreelanceState) {
+                    return _fetchingAnnunciFreelanceWidget();
+                  }
+                  return Container();
+                },
               ),
             ),
           ],
@@ -104,9 +121,19 @@ class _AnnunciFreelancePageState extends State<AnnunciFreelancePage> {
   Widget _annunciFreelanceWidget(
           {required List<AnnuncioFreelanceModel> annunciFreelance}) =>
       ListView.separated(
-        itemBuilder: (content, index) => JobWidgetFreelance(
-          annuncioFreelance: annunciFreelance[index],
-          onPressed: () => onJobWidgetFreelancePressed(annunciFreelance[index]),
+        itemBuilder: (content, index) =>
+            BlocBuilder<AnnuncioFreelanceBloc, AnnuncioFreelanceState>(
+          builder: (context, state) {
+            final annunciFreelance =
+                (state as FetchedAnnuncioFreelanceState).annunci;
+            final annunciInWishList =
+                annunciFreelance.where((it) => it.inFavoritePage).toList();
+            return JobWidgetFreelance(
+              annuncioFreelance: annunciFreelance[index],
+              onPressed: () =>
+                  onJobWidgetFreelancePressed(annunciFreelance[index]),
+            );
+          },
         ),
         itemCount: annunciFreelance.length,
         separatorBuilder: (context, index) => const Divider(

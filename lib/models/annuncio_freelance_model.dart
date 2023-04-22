@@ -11,6 +11,7 @@ class AnnuncioFreelanceModel {
   final String? tipoDiRelazione;
   final String? tempistiche;
   final String? url;
+  bool inFavoritePage;
 
   AnnuncioFreelanceModel(
       {required this.emoji,
@@ -24,7 +25,8 @@ class AnnuncioFreelanceModel {
       required this.descrizioneDelProgetto,
       required this.tipoDiRelazione,
       required this.tempistiche,
-      required this.url});
+      required this.url,
+      this.inFavoritePage = false,});
 
   factory AnnuncioFreelanceModel.fromMap(Map<String, dynamic> map) {
     final emoji = map["icon"]["emoji"];
@@ -76,6 +78,7 @@ class AnnuncioFreelanceModel {
       tipoDiRelazione: tipoDiRelazione,
       tempistiche: tempistiche,
       url: url,
+      inFavoritePage: false,
     );
   }
 }

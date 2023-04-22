@@ -70,7 +70,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
                   } else {
                     WidgetsBinding.instance
                         .addPostFrameCallback((_) => setState(() {}));
-                    final products = (state as FetchedAnnuncioState).annunci;
+                    final annunci = (state as FetchedAnnuncioState).annunci;
                   }
                   return JobSlidingPanelOverview(
                       annuncioModel: currentAnnuncio!);
@@ -185,6 +185,9 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
               child: BlocBuilder<AnnuncioBloc, AnnuncioState>(
                 builder: (context, state) {
                   if (state is FetchedAnnuncioState) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) => {
+                          if (this.mounted) {setState(() {})}
+                        });
                     final annunci = (state).annunci;
                     return _annunciWidget(annunci: annunci);
                   } else if (state is NoAnnuncioState) {

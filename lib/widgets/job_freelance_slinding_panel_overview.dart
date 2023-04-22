@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:offerte_lavoro_flutter_app/blocs/freelanceBloc/bloc/annuncio_freelance_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_freelance_model.dart';
 import 'package:offerte_lavoro_flutter_app/util/share/share.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
@@ -9,20 +11,28 @@ import 'package:offerte_lavoro_flutter_app/util/trasform_to_url.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/sliding_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class JobFreelanceSlidingPanelOverview extends StatelessWidget {
-  final ScrollController _firstController = ScrollController();
+class JobFreelanceSlidingPanelOverview extends StatefulWidget {
   final AnnuncioFreelanceModel annuncioFreelanceModel;
+
+  JobFreelanceSlidingPanelOverview({required this.annuncioFreelanceModel});
+
+  @override
+  State<JobFreelanceSlidingPanelOverview> createState() =>
+      _JobFreelanceSlidingPanelOverviewState();
+}
+
+class _JobFreelanceSlidingPanelOverviewState
+    extends State<JobFreelanceSlidingPanelOverview> {
+  final ScrollController _firstController = ScrollController();
 
   var logger = Logger();
 
   Future<void> _launchUrl() async {
-    if (!await launchUrl(
-        TrasformToUrl.transformToUrl(annuncioFreelanceModel.comeCandidarsi))) {
+    if (!await launchUrl(TrasformToUrl.transformToUrl(
+        widget.annuncioFreelanceModel.comeCandidarsi))) {
       throw Exception('Could not launch ');
     }
   }
-
-  JobFreelanceSlidingPanelOverview({required this.annuncioFreelanceModel});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +64,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
             ),
             _jobAction(),
             Text(
-              annuncioFreelanceModel.codice,
+              widget.annuncioFreelanceModel.codice,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             SizedBox(
@@ -74,17 +84,28 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               "Data pubblicazione: " +
                   DateFormat("dd MMMM HH:MM")
-                      .format(annuncioFreelanceModel.jobPosted),
+                      .format(widget.annuncioFreelanceModel.jobPosted),
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border_outlined),
+            icon: widget.annuncioFreelanceModel.inFavoritePage
+                ? Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
+                  )
+                : Icon(Icons.favorite_outline),
+            onPressed: () {
+              BlocProvider.of<AnnuncioFreelanceBloc>(context).add(
+                  AnnuncioFreelanceFavoriteEventToggle(
+                      (widget.annuncioFreelanceModel)));
+              setState(() {});
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
-              onPressed: () => ShareClass.share(annuncioFreelanceModel.url!),
+              onPressed: () =>
+                  ShareClass.share(widget.annuncioFreelanceModel.url!),
               icon: const Icon(Icons.share),
             ),
           ),
@@ -111,7 +132,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.descrizioneDelProgetto,
+                    widget.annuncioFreelanceModel.descrizioneDelProgetto,
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -126,7 +147,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.richiestaDiLavoro,
+                    widget.annuncioFreelanceModel.richiestaDiLavoro,
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -141,7 +162,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.tipoDiRelazione ?? " - ",
+                    widget.annuncioFreelanceModel.tipoDiRelazione ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -156,7 +177,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.tempistiche ?? " - ",
+                    widget.annuncioFreelanceModel.tempistiche ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -171,7 +192,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.budget ?? " - ",
+                    widget.annuncioFreelanceModel.budget ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -186,7 +207,8 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.tempisticheDiPagamento ?? " - ",
+                    widget.annuncioFreelanceModel.tempisticheDiPagamento ??
+                        " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
@@ -201,7 +223,7 @@ class JobFreelanceSlidingPanelOverview extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    annuncioFreelanceModel.nda ?? " - ",
+                    widget.annuncioFreelanceModel.nda ?? " - ",
                     style: TextStyle(),
                     softWrap: true,
                   ),
