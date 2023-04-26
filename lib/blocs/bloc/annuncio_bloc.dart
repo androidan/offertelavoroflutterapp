@@ -143,7 +143,7 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
       } else if (annunciFiltratiContratto.isEmpty &&
           annunciFiltratiSeniority.isEmpty &&
           annunciFiltratiTeam.isNotEmpty &&
-          annunciFiltratiTeam.length == 1) {
+          filtriTrue.length >= 2) {
         ann = annunciFiltratiTeam
             .toSet()
             .where(
