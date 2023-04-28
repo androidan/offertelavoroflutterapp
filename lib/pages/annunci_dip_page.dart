@@ -87,6 +87,7 @@ class _AnnunciDipPageState extends State<AnnunciDipPage> {
     );
   }
 
+
   Widget _notConnectedBody(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

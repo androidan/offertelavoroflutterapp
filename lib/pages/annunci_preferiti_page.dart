@@ -10,6 +10,8 @@ import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/app_bar_custom.dart';
 import 'package:offerte_lavoro_flutter_app/widgets/job_app_bar.dart';
+import 'package:offerte_lavoro_flutter_app/widgets/job_freelance_slinding_panel_overview.dart';
+import 'package:offerte_lavoro_flutter_app/widgets/job_sliding_panel_overview.dart';
 
 @RoutePage()
 class AnnunciPreferitiPage extends StatefulWidget {
@@ -177,38 +179,88 @@ class _PreferitiDipendentiState extends State<PreferitiDipendenti> {
                   margin: const EdgeInsets.only(top: 16),
                   height: SizeConfig.blockSizeVertical * 60,
                   child: ListView.separated(
-                    itemBuilder: (content, index) => ListTile(
-                      title: Text(
-                        annunciInWishList[index].titolo,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                    itemBuilder: (content, index) => InkWell(
+                      onTap: () => showGeneralDialog(
+                          context: context,
+                          pageBuilder: (_, __, ___) {
+                            return Scaffold(
+                              appBar: const JobAppBar(
+                                child: AppBarCustom("Preferiti dipendenti"),
+                              ),
+                              body: Container(
+                                margin: const EdgeInsets.fromLTRB(
+                                    0.0, 40.0, 0.0, 0.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(24.0),
+                                      topRight: Radius.circular(24.0),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
+                                          spreadRadius: 1,
+                                          blurRadius: 5)
+                                    ]),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 5, right: 5),
+                                      child: IconButton(
+                                        icon: Icon(Icons.close_rounded),
+                                        padding:
+                                            EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                    JobSlidingPanelOverview(
+                                        annuncioModel:
+                                            annunciInWishList[index]),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                      child: ListTile(
+                        title: Text(
+                          annunciInWishList[index].titolo,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      subtitle: AutoSizeText(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        "Data pubblicazione: " +
-                            DateFormat("dd MMMM HH:MM")
-                                .format(annunciInWishList[index].jobPosted),
-                      ),
-                      leading: Container(
-                        width: 45,
-                        height: 45,
-                        child: Center(
-                            child: Text(
-                          annunciInWishList[index].emoji,
-                          style: TextStyle(fontSize: 30),
-                        )),
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          BlocProvider.of<AnnuncioBloc>(context).add(
-                              AnnuncioFavoriteEventToggle(
-                                  annunciInWishList[index]));
-                          setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.remove_circle_outline,
+                        subtitle: AutoSizeText(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          "Data pubblicazione: " +
+                              DateFormat("dd MMMM HH:MM")
+                                  .format(annunciInWishList[index].jobPosted),
+                        ),
+                        leading: Container(
+                          width: 45,
+                          height: 45,
+                          child: Center(
+                              child: Text(
+                            annunciInWishList[index].emoji,
+                            style: TextStyle(fontSize: 30),
+                          )),
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            BlocProvider.of<AnnuncioBloc>(context).add(
+                                AnnuncioFavoriteEventToggle(
+                                    annunciInWishList[index]));
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            Icons.remove_circle_outline,
+                          ),
                         ),
                       ),
                     ),
@@ -282,38 +334,91 @@ class _PreferitiFreelanceState extends State<PreferitiFreelance> {
                     margin: const EdgeInsets.only(top: 16),
                     height: SizeConfig.blockSizeVertical * 60,
                     child: ListView.separated(
-                      itemBuilder: (content, index) => ListTile(
-                        title: Text(
-                          annunciInWishList[index].codice,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                      itemBuilder: (content, index) => InkWell(
+                        onTap: () => showGeneralDialog(
+                            context: context,
+                            pageBuilder: (_, __, ___) {
+                              return Scaffold(
+                                appBar: const JobAppBar(
+                                  child: AppBarCustom("Preferiti freelance"),
+                                ),
+                                body: Container(
+                                  margin: const EdgeInsets.fromLTRB(
+                                      0.0, 40.0, 0.0, 0.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(24.0),
+                                        topRight: Radius.circular(24.0),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary,
+                                            spreadRadius: 1,
+                                            blurRadius: 5)
+                                      ]),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(top: 5, right: 5),
+                                        child: IconButton(
+                                          icon: Icon(Icons.close_rounded),
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ),
+                                      JobFreelanceSlidingPanelOverview(
+                                        annuncioFreelanceModel:
+                                            annunciInWishList[index],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                        child: ListTile(
+                          title: Text(
+                            annunciInWishList[index].codice,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        subtitle: AutoSizeText(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          "Data pubblicazione: " +
-                              DateFormat("dd MMMM HH:MM")
-                                  .format(annunciInWishList[index].jobPosted),
-                        ),
-                        leading: Container(
-                          width: 45,
-                          height: 45,
-                          child: Center(
-                              child: Text(
-                            annunciInWishList[index].emoji,
-                            style: TextStyle(fontSize: 30),
-                          )),
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            BlocProvider.of<AnnuncioFreelanceBloc>(context).add(
-                                AnnuncioFreelanceFavoriteEventToggle(
-                                    annunciInWishList[index]));
-                            setState(() {});
-                          },
-                          icon: Icon(
-                            Icons.remove_circle_outline,
+                          subtitle: AutoSizeText(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            "Data pubblicazione: " +
+                                DateFormat("dd MMMM HH:MM")
+                                    .format(annunciInWishList[index].jobPosted),
+                          ),
+                          leading: Container(
+                            width: 45,
+                            height: 45,
+                            child: Center(
+                                child: Text(
+                              annunciInWishList[index].emoji,
+                              style: TextStyle(fontSize: 30),
+                            )),
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              BlocProvider.of<AnnuncioFreelanceBloc>(context)
+                                  .add(AnnuncioFreelanceFavoriteEventToggle(
+                                      annunciInWishList[index]));
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.remove_circle_outline,
+                            ),
                           ),
                         ),
                       ),
