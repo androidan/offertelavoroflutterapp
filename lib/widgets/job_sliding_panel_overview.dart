@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -262,6 +263,35 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
                     widget.annuncioModel.descrizioneOfferta,
                     style: TextStyle(),
                     softWrap: true,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "Come candidarsi",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: InkWell(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(
+                          text: widget.annuncioModel.comeCandidarsi));
+                      final snackBar = SnackBar(
+                        content: const Text('Copiato negli appunti'),
+                        action: SnackBarAction(
+                          label: 'Chiudi',
+                          onPressed: () {},
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: Text(
+                      widget.annuncioModel.comeCandidarsi,
+                      style: TextStyle(),
+                      softWrap: true,
+                    ),
                   ),
                 ),
               ],
