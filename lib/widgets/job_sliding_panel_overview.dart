@@ -287,10 +287,15 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
-                    child: Text(
-                      widget.annuncioModel.comeCandidarsi,
-                      style: TextStyle(),
-                      softWrap: true,
+                    child: ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.only(right: 8),
+                      title: Text(
+                        widget.annuncioModel.comeCandidarsi,
+                        style: TextStyle(
+                            fontSize: 13, color: Colors.blue.shade700),
+                      ),
+                      leading: Icon(Icons.content_copy_rounded),
                     ),
                   ),
                 ),

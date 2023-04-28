@@ -29,8 +29,10 @@ class _JobFreelanceSlidingPanelOverviewState
   var logger = Logger();
 
   Future<void> _launchUrl() async {
-    if (!await launchUrl(TrasformToUrl.transformToUrl(
-        widget.annuncioFreelanceModel.comeCandidarsi))) {
+    if (!await launchUrl(
+        TrasformToUrl.transformToUrl(
+            widget.annuncioFreelanceModel.comeCandidarsi),
+        mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch ');
     }
   }
@@ -236,26 +238,28 @@ class _JobFreelanceSlidingPanelOverviewState
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: InkWell(
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(
-                          text: widget.annuncioFreelanceModel.comeCandidarsi));
-                      final snackBar = SnackBar(
-                        content: const Text('Copiato negli appunti'),
-                        action: SnackBarAction(
-                          label: 'Chiudi',
-                          onPressed: () {},
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                    child: Text(
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(
+                        text: widget.annuncioFreelanceModel.comeCandidarsi));
+                    final snackBar = SnackBar(
+                      content: const Text('Copiato negli appunti'),
+                      action: SnackBarAction(
+                        label: 'Chiudi',
+                        onPressed: () {},
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: ListTile(
+                    dense: true,
+                    contentPadding: EdgeInsets.only(right: 8),
+                    title: Text(
                       widget.annuncioFreelanceModel.comeCandidarsi,
-                      style: TextStyle(),
-                      softWrap: true,
+                      style:
+                          TextStyle(fontSize: 13, color: Colors.blue.shade700),
                     ),
+                    leading: Icon(Icons.content_copy_rounded),
                   ),
                 ),
               ],
