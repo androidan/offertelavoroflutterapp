@@ -162,6 +162,16 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
                 (element) => annunciFiltratiContratto.toSet().contains(element))
             .toList();
       } else if (annunciFiltratiContratto.isEmpty &&
+          annunciFiltratiTeam.isEmpty &&
+          annunciFiltratiSeniority.isNotEmpty &&
+          contratto.length == 1 &&
+          seniority.length >= 2) {
+        ann = annunciFiltratiSeniority
+            .toSet()
+            .where(
+                (element) => annunciFiltratiContratto.toSet().contains(element))
+            .toList();
+      } else if (annunciFiltratiContratto.isEmpty &&
           annunciFiltratiSeniority.isEmpty &&
           annunciFiltratiTeam.isNotEmpty &&
           filtriTrue.length >= 2) {
