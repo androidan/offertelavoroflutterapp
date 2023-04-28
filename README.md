@@ -26,7 +26,7 @@ Abbiamo comunque lasciato, alla fine della descrizione, l'url della candidatura 
 
 ## TODO
 - manca la paginazione
-- mancano i test 
+- mancano i test  
 entrambi per mancanza di tempo
 
 
