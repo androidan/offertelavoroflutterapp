@@ -3,6 +3,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:offerte_lavoro_flutter_app/mocks.dart';
 import 'package:offerte_lavoro_flutter_app/models/annuncio_model.dart';
 import 'package:offerte_lavoro_flutter_app/repositories/annuncio_repositories.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'annuncio_event.dart';
 part 'annuncio_state.dart';
@@ -14,10 +15,18 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
   AnnuncioBloc({required this.annuncioRepository})
       : super(FetchingAnnuncioState()) {
     on<FetchAnnuncioEvent>((event, emit) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       emit(FetchingAnnuncioState());
 
       try {
         annunci = await AnnuncioRepository.annunci();
+
+        //controllo se nelle sharedPreferences ci sono annunci memorizzati
+        annunci.forEach((annuncio) {
+          prefs.containsKey(annuncio.titolo)
+              ? annuncio.inFavoritePage = true
+              : null;
+        });
 
         emit(annunci.isEmpty
             ? NoAnnuncioState()
@@ -28,11 +37,19 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
     });
 
 //-------------------------Toggle preferiti-------------------------------------------------------
-    on<AnnuncioFavoriteEventToggle>((event, emit) {
+    on<AnnuncioFavoriteEventToggle>((event, emit) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       final annunci = (state as FetchedAnnuncioState).annunci;
       final annuncio = annunci.firstWhere(
           (element) => element.titolo == event.annuncioModel.titolo);
       annuncio.inFavoritePage = !annuncio.inFavoritePage;
+
+//persistenza nuovo preferito o rimozione di uno già savato
+      if (annuncio.inFavoritePage) {
+        await prefs.setBool(annuncio.titolo, true);
+      } else {
+        await prefs.remove(annuncio.titolo);
+      }
 
       emit(FetchedAnnuncioState(annunci));
     });
@@ -110,7 +127,10 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
       } else if (annunciFiltratiSeniority.isEmpty &&
           annunciFiltratiContratto.isEmpty &&
           annunciFiltratiTeam.isEmpty) {
-        ann = [];
+        ann = liste
+            .fold<Set>(liste.first.toSet(), (a, b) => a.intersection(b.toSet()))
+            .toList()
+            .cast<AnnuncioModel>();
       } else if (annunciFiltratiSeniority.isNotEmpty &&
           annunciFiltratiContratto.isNotEmpty &&
           annunciFiltratiTeam.isNotEmpty) {
@@ -134,7 +154,8 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
       } else if (annunciFiltratiContratto.isEmpty &&
           annunciFiltratiTeam.isEmpty &&
           annunciFiltratiSeniority.isNotEmpty &&
-          annunciFiltratiSeniority.length == 1) {
+          filtriTrue.length >= 2 &&
+          seniority.length == 1) {
         ann = annunciFiltratiSeniority
             .toSet()
             .where(
