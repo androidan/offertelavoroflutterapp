@@ -24,6 +24,59 @@ per ogni dettaglio annuncio sono possibili 4 CTA:
 Abbiamo comunque lasciato, alla fine della descrizione, l'url della candidatura per permettere all'utente di copiarla e usarla per effettuare una candidatura con gli strumenti che meglio crede.
 - ogni schermata (liste e dettagli) ha la possibilità di aggiungere l'annuncio ai preferiti
 
+## Librerie usate
+- **auto_route:** gestisce la navigazione tra pagine
+- **sliding_up_panel:** usato per il dettaglio degli annunci
+- **flutter_offline:** controllo se device è connesso al wifi o connessione dati
+- **flutter_bloc:** per la gestione dello stato
+- **hydrated_bloc:** per la dark mode
+- **url_launcher:** apertura app esterne da Uri
+- **shimmer:** per la gestione del caricamento dati
+- **share_plus:** per la condivisione con le altre app
+- **shared_preferences:** per la persistenza dei preferiti
+
+## Configurazione
+dopo aver effettuato il clean e il caricamento delle librerie esterne tramite i comandi standard:
+```
+flutter clean
+flutter pub get
+```
+
+è necessario sostituire nella cartella "ios" del progetto, nel file "Podfile" generato, l'ultima sezione "post_install" con la seguente:
+```
+post_install do |installer|
+  installer.generated_projects.each do |project|
+        project.targets.each do |target|
+            target.build_configurations.each do |config|
+                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+             end
+        end
+ end
+    installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
+end
+```
+
+## Dispositivi testati
+
+### Emulatori
+- iOS versione 16.4
+  - iPhone 8
+  - iPhone SE (terza gen)
+  - iPhone 14/14 pro max
+
+- Android
+
+
+### Device fisici
+- IOS 16.3.1
+  - iPhone 13/13 mini
+
+- Android 13 Tiramisù
+  - Google Pixel 7 pro
+
+
 ## TODO
 - manca la paginazione
 - mancano i test  
