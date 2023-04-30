@@ -1,4 +1,5 @@
 class AnnuncioModel {
+  final String id;
   final String emoji;
   final DateTime jobPosted;
   final String? team;
@@ -14,6 +15,7 @@ class AnnuncioModel {
   bool inFavoritePage;
 
   AnnuncioModel({
+    required this.id,
     required this.emoji,
     required this.jobPosted,
     required this.titolo,
@@ -30,6 +32,7 @@ class AnnuncioModel {
   });
 
   factory AnnuncioModel.fromMap(Map<String, dynamic> map) {
+    final id = map["id"];
     final emoji = map["icon"]["emoji"];
     final jobPosted =
         DateTime.parse(map["properties"]["Job Posted"]["created_time"]);
@@ -61,6 +64,7 @@ class AnnuncioModel {
     final url = map["url"];
 
     return AnnuncioModel(
+      id: id,
       emoji: emoji,
       contratto: contratto,
       seniority: seniority,

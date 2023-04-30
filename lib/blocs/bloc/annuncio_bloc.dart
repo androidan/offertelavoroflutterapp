@@ -23,7 +23,7 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
 
         //controllo se nelle sharedPreferences ci sono annunci memorizzati
         annunci.forEach((annuncio) {
-          prefs.containsKey(annuncio.titolo)
+          prefs.containsKey(annuncio.id)
               ? annuncio.inFavoritePage = true
               : null;
         });
@@ -41,14 +41,14 @@ class AnnuncioBloc extends Bloc<AnnuncioEvent, AnnuncioState> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final annunci = (state as FetchedAnnuncioState).annunci;
       final annuncio = annunci.firstWhere(
-          (element) => element.titolo == event.annuncioModel.titolo);
+          (element) => element.id == event.annuncioModel.id);
       annuncio.inFavoritePage = !annuncio.inFavoritePage;
 
 //persistenza nuovo preferito o rimozione di uno già savato
       if (annuncio.inFavoritePage) {
-        await prefs.setBool(annuncio.titolo, true);
+        await prefs.setBool(annuncio.id, true);
       } else {
-        await prefs.remove(annuncio.titolo);
+        await prefs.remove(annuncio.id);
       }
 
       emit(FetchedAnnuncioState(annunci));
