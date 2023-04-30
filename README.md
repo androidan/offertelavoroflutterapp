@@ -70,7 +70,10 @@ end
   - iPhone SE (terza gen)
   - iPhone 14/14 pro max
 
-- Android
+- Android 13 Tiramisù
+  - Google Pixel 6 pro
+- Android 10 Q
+  - Google Pixel 2
 
 
 ### Device fisici
@@ -78,7 +81,8 @@ end
   - iPhone 13/13 mini
 
 - Android 13 Tiramisù
-  - Google Pixel 7 pro
+  - Google Pixel 7 Pro
+  - OnePlus 8T
 
 
 ## TODO
