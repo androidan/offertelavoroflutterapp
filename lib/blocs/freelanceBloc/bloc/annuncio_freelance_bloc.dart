@@ -23,7 +23,7 @@ class AnnuncioFreelanceBloc
 
 //controllo se nelle sharedPreferences ci sono annunci memorizzati
         annunciFreelance.forEach((annuncio) {
-          prefs.containsKey(annuncio.codice)
+          prefs.containsKey(annuncio.id)
               ? annuncio.inFavoritePage = true
               : null;
         });
@@ -41,14 +41,14 @@ class AnnuncioFreelanceBloc
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final annunciFreelance = (state as FetchedAnnuncioFreelanceState).annunci;
       final annuncio = annunciFreelance.firstWhere(
-          (element) => element.codice == event.annuncioFreelanceModel.codice);
+          (element) => element.id == event.annuncioFreelanceModel.id);
       annuncio.inFavoritePage = !annuncio.inFavoritePage;
 
 //persistenza nuovo preferito o rimozione di uno già savato
       if (annuncio.inFavoritePage) {
-        await prefs.setBool(annuncio.codice, true);
+        await prefs.setBool(annuncio.id, true);
       } else {
-        await prefs.remove(annuncio.codice);
+        await prefs.remove(annuncio.id);
       }
 
       emit(FetchedAnnuncioFreelanceState(annunciFreelance));

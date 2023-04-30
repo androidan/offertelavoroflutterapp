@@ -1,4 +1,5 @@
 class AnnuncioFreelanceModel {
+  final String id;
   final String emoji;
   final DateTime jobPosted;
   final String comeCandidarsi;
@@ -14,7 +15,9 @@ class AnnuncioFreelanceModel {
   bool inFavoritePage;
 
   AnnuncioFreelanceModel(
-      {required this.emoji,
+      {
+      required this.id,
+      required this.emoji,
       required this.jobPosted,
       required this.comeCandidarsi,
       required this.richiestaDiLavoro,
@@ -29,6 +32,7 @@ class AnnuncioFreelanceModel {
       this.inFavoritePage = false,});
 
   factory AnnuncioFreelanceModel.fromMap(Map<String, dynamic> map) {
+    final id = map["id"];
     final emoji = map["icon"]["emoji"];
     final jobPosted =
         DateTime.parse(map["properties"]["Job Posted"]["created_time"]);
@@ -66,6 +70,7 @@ class AnnuncioFreelanceModel {
     final url = map["url"];
 
     return AnnuncioFreelanceModel(
+      id: id,
       emoji: emoji,
       jobPosted: jobPosted,
       comeCandidarsi: comeCandidarsi,
