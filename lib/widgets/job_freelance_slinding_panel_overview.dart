@@ -42,9 +42,13 @@ class _JobFreelanceSlidingPanelOverviewState
     return Container(
       child: Column(
         children: [
-          jobHeader(),
-          jobDescription(),
-          buttomSaveJob(),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 15, child: jobHeader()),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 45,
+              child: jobDescription()),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 5, child: buttomSaveJob()),
         ],
       ),
     );

@@ -39,16 +39,21 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
     return Container(
       child: Column(
         children: [
-          jobHeader(context),
-          jobDescription(),
-          buttomSaveJob(),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 23,
+              child: jobHeader(context)),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 40,
+              child: jobDescription()),
+          SizedBox(
+              height: SizeConfig.blockSizeVertical * 5, child: buttomSaveJob()),
         ],
       ),
     );
   }
 
   Widget jobHeader(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.only(top: 4.0),
         child: Column(
           children: [
             Container(
@@ -60,11 +65,11 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
               ),
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical * 1,
+              height: SizeConfig.blockSizeVertical * 0.8,
             ),
             _jobAction(context),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -73,11 +78,11 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
               ),
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical * 1,
+              height: SizeConfig.blockSizeVertical * 0.8,
             ),
             _jobLabel(context),
             SizedBox(
-              height: SizeConfig.blockSizeVertical * 2,
+              height: SizeConfig.blockSizeVertical * 0.8,
             ),
             _jobFactoryAndRal(),
           ],
@@ -241,9 +246,9 @@ class _JobSlidingPanelOverviewState extends State<JobSlidingPanelOverview> {
       );
 
   Widget jobDescription() => Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8),
         child: SizedBox(
-          height: SizeConfig.blockSizeVertical * 36,
+          // height: SizeConfig.blockSizeVertical * 30,
           child: Scrollbar(
             thumbVisibility: true,
             controller: _firstController,
