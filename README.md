@@ -4,9 +4,9 @@ Questo progetto Flutter, che partecipa all'hackathon promosso da [Fudeo](https:/
 
 ## Struttura applicazione
 
-| HOMEPAGE  | DETTAGLIO ANNUNCIO | HOMEPAGE FILTRI (DARKMODE)  | PREFERITI (DARK MODE) |
+| HOMEPAGE  | DETTAGLIO ANNUNCIO | HOME FILTRI (DARKMODE)  | PREFERITI (DARK MODE) |
 | ------------- | ------------- | ------------- | ------------- |
-| ![Screenshot 2023-04-30 at 17 41 50](https://user-images.githubusercontent.com/3844108/235363507-107f90eb-2f77-4eae-9ea5-7ba57cde5f26.png)  | ![Screenshot 2023-04-30 at 17 47 46](https://user-images.githubusercontent.com/3844108/235363556-fb762276-ec1e-40d8-8941-6d0b606e5e78.png)  | ![Screenshot 2023-04-30 at 17 51 55](https://user-images.githubusercontent.com/3844108/235363561-d797e39f-c036-40ef-be0d-91084ccc5eb8.png)  | ![Screenshot 2023-04-30 at 17 52 34](https://user-images.githubusercontent.com/3844108/235363564-488d82d2-10d2-4256-ba3f-0209f000c047.png)  |
+| ![Screenshot 2023-04-30 at 17 41 50](https://user-images.githubusercontent.com/3844108/235363507-107f90eb-2f77-4eae-9ea5-7ba57cde5f26.png)  | ![Screenshot 2023-04-30 at 17 47 46](https://user-images.githubusercontent.com/3844108/235363556-fb762276-ec1e-40d8-8941-6d0b606e5e78.png)  | ![Screenshot 2023-04-30 at 17 51 55](https://user-images.githubusercontent.com/3844108/235363561-d797e39f-c036-40ef-be0d-91084ccc5eb8.png) | ![Screenshot 2023-04-30 at 17 52 34](https://user-images.githubusercontent.com/3844108/235363564-488d82d2-10d2-4256-ba3f-0209f000c047.png)  |
 
 
 
