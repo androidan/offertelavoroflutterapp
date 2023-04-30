@@ -1,16 +1,32 @@
-# offerte_lavoro_flutter_app
+# Offerte Lavoro Flutter
 
-A new Flutter project.
+Questo progetto Flutter, che partecipa all'hackathon promosso da [Fudeo](https://www.fudeo.it/blog/hackathon-flutter-offertelavoroflutter) mostra su piattaforma mobile gli annunci di lavoro del sito [Offertelavoroflutter.it](www.offertelavoroflutter.it), il servizio italiano di annunci di lavoro su Flutter.
 
-## Getting Started
+## Struttura applicazione
+L'applicazione è composta da un menu principale di 3 voci:
+- annunci di lavoro per **dipendenti**
+- annunci di lavoro per **freelance**
+- le liste dei **preferiti** divise per dipendenti e freelance
 
-This project is a starting point for a Flutter application.
+in ogni maschera sono presenti:
+- una lista dei **filtri** che rispecchiano quelli della versione WEB
+- la funzione **dark mode**. 
+Una volta scelto un annuncio tramite tap, compare il dettaglio dell'annuncio con il titolo, la descrizione, le macrocategorie dell'annuncio, l'azienda che propone l'impiego e l'eventuale offerta economica. 
 
-A few resources to get you started if this is your first Flutter project:
+per ogni dettaglio annuncio sono possibili 4 CTA:
+- aggiunta alla lista preferiti
+- condivisione con tutti gli strumenti standard del dispositivo mobile
+- tasto di **CANDIDATURA**
+- funzione "copia url" per effettare una "candidatura manuale"
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Punti di Forza
+- Il tasto **CANDIDATURA** secondo noi è una funzione molto utile poichè, analizza il testo contenuto nel campo del JSON "come candidarsi" e in base al fatto che contiene una email o un link ad un sito, apre il client di posta oppure il browser del device, in quest'ultimo caso reindirizzando sull'eventuale app installata sul device stesso (vedi il caso di _linkedin_).
+Abbiamo comunque lasciato, alla fine della descrizione, l'url della candidatura per permettere all'utente di copiarla e usarla per effettuare una candidatura con gli strumenti che meglio crede.
+- ogni schermata (liste e dettagli) ha la possibilità di aggiungere l'annuncio ai preferiti
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## TODO
+- manca la paginazione
+- mancano i test  
+- refactoring e ottimizzazione del codice
+
+

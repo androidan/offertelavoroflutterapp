@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:offerte_lavoro_flutter_app/util/size_config/size_config.dart';
 
 class JobAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget child;
@@ -17,22 +18,25 @@ class JobAppBar extends StatelessWidget with PreferredSizeWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) => ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: blur ? 15 : 0,
-            sigmaY: blur ? 15 : 0,
-          ),
-          child: Container(
-            //color: Colors.grey.shade200,
-            child: child,
-            padding: const EdgeInsets.only(
-              top: 58.0,
-              right: 24.0,
-              left: 24.0,
-              bottom: 16.0,
-            ),
+  Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: blur ? 15 : 0,
+          sigmaY: blur ? 15 : 0,
+        ),
+        child: Container(
+          //color: Colors.grey.shade200,
+          child: child,
+          padding: EdgeInsets.only(
+            top: 58.0,
+            right: SizeConfig.blockSizeHorizontal * 1,
+            left: SizeConfig.blockSizeHorizontal * 1,
+            bottom: 16.0,
           ),
         ),
-      );
+      ),
+    );
+  }
 }

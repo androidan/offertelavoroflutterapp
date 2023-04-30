@@ -10,25 +10,24 @@ class ContentPage extends StatelessWidget {
   Widget build(BuildContext context) => AutoTabsScaffold(
         animationCurve: Curves.easeInQuad,
         routes: [
-          AnnunciDipRoute(content: 'Offerte lavoro per assunzioni'),
-          AnnunciDipRoute(content: 'Offerte lavoro per freelance'),
-          AnnunciPreferitiRoute(content: 'Offerte lavoro preferite'),
+          AnnunciDipRoute(),
+          AnnunciFreelanceRoute(),
+          AnnunciPreferitiRoute(),
         ],
         transitionBuilder: (context, child, animation) => child,
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavigationBar(
-          backgroundColor: Colors.grey.shade200,
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          selectedItemColor: Theme.of(context).primaryColorDark,
           items: [
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(
                   Icons.work_history_rounded,
                 ),
                 label: 'Dipendenti'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.work_history_rounded), label: 'Freelance'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border_rounded), label: 'Preferiti'),
           ],
         ),
