@@ -1,6 +1,6 @@
 # Offerte Lavoro Flutter
 
-Questo progetto Flutter, che partecipa all'hackathon promosso da [Fudeo](https://www.fudeo.it/blog/hackathon-flutter-offertelavoroflutter) mostra su piattaforma mobile gli annunci di lavoro del sito [Offertelavoroflutter.it](www.offertelavoroflutter.it), il servizio italiano di annunci di lavoro su Flutter.
+Questo progetto Flutter, che partecipa all'hackathon promosso da [Fudeo](https://www.fudeo.it/blog/hackathon-flutter-offertelavoroflutter) mostra su piattaforma mobile gli annunci di lavoro del sito [Offertelavoroflutter.it](https://offertelavoroflutter.it/), il servizio italiano di annunci di lavoro su Flutter.
 
 ## Struttura applicazione
 
