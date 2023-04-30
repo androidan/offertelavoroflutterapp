@@ -9,15 +9,12 @@ Questo progetto Flutter, che partecipa all'hackathon promosso da [Fudeo](https:/
 | ![Screenshot 2023-04-30 at 17 41 50](https://user-images.githubusercontent.com/3844108/235363507-107f90eb-2f77-4eae-9ea5-7ba57cde5f26.png)  | ![Screenshot 2023-04-30 at 17 47 46](https://user-images.githubusercontent.com/3844108/235363556-fb762276-ec1e-40d8-8941-6d0b606e5e78.png)  | ![Screenshot 2023-04-30 at 17 51 55](https://user-images.githubusercontent.com/3844108/235363561-d797e39f-c036-40ef-be0d-91084ccc5eb8.png) | ![Screenshot 2023-04-30 at 17 52 34](https://user-images.githubusercontent.com/3844108/235363564-488d82d2-10d2-4256-ba3f-0209f000c047.png)  |
 
 
-
 L'applicazione è composta da un menu principale di 3 voci:
 - annunci di lavoro per **dipendenti**
 - annunci di lavoro per **freelance**
 - le liste dei **preferiti** divise per dipendenti e freelance
 
-in ogni maschera sono presenti:
-- una lista dei **filtri** che rispecchiano quelli della versione WEB
-- la funzione **dark mode**. 
+In homepage (pagina annunci dipendenti) è presente una lista dei **filtri** che rispecchiano quelli della versione WEB, inoltre in ogni maschera è presente la funzione **dark mode**. 
 Una volta scelto un annuncio tramite tap, compare il dettaglio dell'annuncio con il titolo, la descrizione, le macrocategorie dell'annuncio, l'azienda che propone l'impiego e l'eventuale offerta economica. 
 
 per ogni dettaglio annuncio sono possibili 4 CTA:
@@ -27,8 +24,8 @@ per ogni dettaglio annuncio sono possibili 4 CTA:
 - funzione "copia url" per effettare una "candidatura manuale"
 
 ## Punti di Forza
-- Il tasto **CANDIDATURA** secondo noi è una funzione molto utile poichè, analizza il testo contenuto nel campo del JSON "come candidarsi" e in base al fatto che contiene una email o un link ad un sito, apre il client di posta oppure il browser del device, in quest'ultimo caso reindirizzando sull'eventuale app installata sul device stesso (vedi il caso di _linkedin_).
-Abbiamo comunque lasciato, alla fine della descrizione, l'url della candidatura per permettere all'utente di copiarla e usarla per effettuare una candidatura con gli strumenti che meglio crede.
+- Il tasto **CANDIDATURA** secondo noi è una funzione molto utile poichè, analizza il testo contenuto nel campo del JSON "come candidarsi" e in base al fatto che contiene una email o un link ad un sito, apre il client di posta oppure il browser del dispositivo, in quest'ultimo caso reindirizzando sull'eventuale app installata (vedi il caso di _linkedin_).
+Abbiamo comunque lasciato, alla fine della descrizione, l'url della candidatura per permettere all'utente di copiarla e usarla per effettuare una candidatura con gli strumenti che ritiene opportuni.
 - ogni schermata (liste e dettagli) ha la possibilità di aggiungere l'annuncio ai preferiti
 
 ## Librerie usate
@@ -85,8 +82,8 @@ end
 
 
 ## TODO
-- manca la paginazione
-- mancano i test  
-- refactoring e ottimizzazione del codice
+- Paginazione
+- Classi di test  
+- Refactoring e ottimizzazione del codice
 
 
