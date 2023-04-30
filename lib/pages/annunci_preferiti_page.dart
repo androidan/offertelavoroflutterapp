@@ -189,7 +189,7 @@ class _PreferitiDipendentiState extends State<PreferitiDipendenti> {
                               ),
                               body: Container(
                                 margin: const EdgeInsets.fromLTRB(
-                                    0.0, 40.0, 0.0, 0.0),
+                                    0.0, 20.0, 0.0, 0.0),
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(24.0),
@@ -207,7 +207,7 @@ class _PreferitiDipendentiState extends State<PreferitiDipendenti> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(top: 5, right: 5),
