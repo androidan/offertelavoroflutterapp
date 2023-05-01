@@ -9,14 +9,14 @@ class Filtri {
       selected: false,
     ),
     Filtro(
-      name: 'Senior',
-      icon: Icons.star,
+      name: 'Mid',
+      icon: Icons.star_half,
       categoria: 'seniority',
       selected: false,
     ),
     Filtro(
-      name: 'Mid',
-      icon: Icons.star_half,
+      name: 'Senior',
+      icon: Icons.star,
       categoria: 'seniority',
       selected: false,
     ),
